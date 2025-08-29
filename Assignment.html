@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack Developer Portfolio | Your Name</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark-color) !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: var(--gradient);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .btn-custom {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn-custom:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Portfolio Cards */
+        .portfolio-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-header i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-body p {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-link {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .demo-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+            color: white;
+        }
+
+        /* Code Examples */
+        .code-example {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .code-example pre {
+            color: #e2e8f0;
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .code-example .keyword {
+            color: #8b5cf6;
+        }
+
+        .code-example .string {
+            color: #10b981;
+        }
+
+        .code-example .comment {
+            color: #6b7280;
+        }
+
+        /* Interactive Elements */
+        .interactive-demo {
+            background: var(--light-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .demo-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .demo-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Page Navigation */
+        .page-nav {
+            position: fixed;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .page-nav a {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.3);
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .page-nav a.active,
+        .page-nav a:hover {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        /* Skills Progress Bars */
+        .skill-bar {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: width 2s ease;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            background: var(--gradient);
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-code"></i> Portfolio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#fullstack">Full Stack</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#html">HTML</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#css">CSS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#bootstrap">Bootstrap</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#javascript">JavaScript</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Navigation Dots -->
+    <div class="page-nav d-none d-lg-block">
+        <a href="#home" class="active" data-section="home"></a>
+        <a href="#fullstack" data-section="fullstack"></a>
+        <a href="#html" data-section="html"></a>
+        <a href="#css" data-section="css"></a>
+        <a href="#bootstrap" data-section="bootstrap"></a>
+        <a href="#javascript" data-section="javascript"></a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1>Full Stack Developer Portfolio</h1>
+                        <p>Demonstrating comprehensive understanding of modern web development technologies including HTML, CSS, Bootstrap, and JavaScript.</p>
+                        <a href="#fullstack" class="btn-custom">
+                            <i class="fas fa-rocket me-2"></i>Explore My Work
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center">
+                        <i class="fas fa-laptop-code" style="font-size: 15rem; color: rgba(255,255,255,0.1);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Stack Development Section -->
+    <section id="fullstack" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">What is Full Stack Development?</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fas fa-layer-group"></i>
+                            <h3>Full Stack Development Overview</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Full stack development refers to the practice of working on both the frontend (client-side) and backend (server-side) portions of web applications. A full stack developer has the skills to handle:</p>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <h5><i class="fas fa-desktop text-primary me-2"></i>Frontend Technologies</h5>
+                                    <ul>
+                                        <li>HTML5 for structure</li>
+                                        <li>CSS3 for styling</li>
+                                        <li>JavaScript for interactivity</li>
+                                        <li>Frameworks like React, Vue, Angular</li>
+                                        <li>Responsive design principles</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5><i class="fas fa-server text-primary me-2"></i>Backend Technologies</h5>
+                                    <ul>
+                                        <li>Server-side languages (Node.js, Python, PHP)</li>
+                                        <li>Databases (MySQL, MongoDB, PostgreSQL)</li>
+                                        <li>APIs and web services</li>
+                                        <li>Server management and deployment</li>
+                                        <li>Security and authentication</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="interactive-demo mt-4">
+                                <h5>Interactive Full Stack Architecture Demo</h5>
+                                <div class="text-center">
+                                    <button class="demo-button" onclick="showLayer('frontend')">Frontend Layer</button>
+                                    <button class="demo-button" onclick="showLayer('backend')">Backend Layer</button>
+                                    <button class="demo-button" onclick="showLayer('database')">Database Layer</button>
+                                </div>
+                                <div id="layer-info" class="mt-3 p-3 bg-white rounded">
+                                    <p>Click on the buttons above to explore different layers of full stack development!</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <h5>Skills Proficiency</h5>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Frontend Development</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="90%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Backend Development</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="85%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Database Management</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" data-width="80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HTML Section -->
+    <section id="html" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title fade-in">HTML Mastery</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fab fa-html5"></i>
+                            <h3>HTML5 Semantic Structure</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Demonstrating proper HTML5 semantic elements, accessibility features, and modern markup practices.</p>
+                            
+                            <div class="code-example">
+                                <pre><code><span class="comment">&lt;!-- Semantic HTML5 Structure --&gt;</span>
+<span class="keyword">&lt;header&gt;</span>
+  <span class="keyword">&lt;nav&gt;</span>
+    <span class="keyword">&lt;ul&gt;</span>
+      <span class="keyword">&lt;li&gt;&lt;a</span> <span class="string">href="#home"</span><span class="keyword">&gt;</span>Home<span class="keyword">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="keyword">&lt;/ul&gt;</span>
+  <span class="keyword">&lt;/nav&gt;</span>
+<span class="keyword">&lt;/header&gt;</span>
+
+<span class="keyword">&lt;main&gt;</span>
+  <span class="keyword">&lt;section&gt;</span>
+    <span class="keyword">&lt;article&gt;</span>
+      <span class="keyword">&lt;h1&gt;</span>Article Title<span class="keyword">&lt;/h1&gt;</span>
+      <span class="keyword">&lt;p&gt;</span>Content here...<span class="keyword">&lt;/p&gt;</span>
+    <span class="keyword">&lt;/article&gt;</span>
+  <span class="keyword">&lt;/section&gt;</span>
+<span class="keyword">&lt;/main&gt;</span>
+
+<span class="keyword">&lt;footer&gt;</span>
+  <span class="keyword">&lt;p&gt;</span>&copy; 2024 Portfolio<span class="keyword">&lt;/p&gt;</span>
+<span class="keyword">&lt;/footer&gt;</span></code></pre>
+                            </div>
+
+                            <h5>Key HTML5 Features Demonstrated:</h5>
+                            <ul>
+                                <li>Semantic elements (header, nav, main, section, article, footer)</li>
+                                <li>Form validation with HTML5 input types</li>
+                                <li>Accessibility attributes (ARIA labels, alt text)</li>
+                                <li>Meta tags for SEO and responsive design</li>
+                                <li>Structured data markup</li>
+                            </ul>
+
+                            <a href="#" class="demo-link" onclick="showHTMLDemo()">
+                                <i class="fas fa-play me-2"></i>View HTML Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fas fa-universal-access"></i>
+                            <h3>Accessibility & Forms</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Interactive form demonstrating HTML5 validation, accessibility features, and user experience best practices.</p>
+                            
+                            <form class="mt-3" id="html-demo-form" novalidate>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required 
+                                           aria-describedby="emailHelp">
+                                    <div id="emailHelp" class="form-text">We'll never share your email.</div>
+                                    <div class="invalid-feedback">Please provide a valid email.</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" 
+                                           pattern="[0-9]{3}[0-9]{3}[0-9]{4}" 
+                                           placeholder="1234567890">
+                                    <div class="invalid-feedback">Please provide a valid phone number (123-456-7890).</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="birthdate" class="form-label">Birth Date</label>
+                                    <input type="date" class="form-control" id="birthdate" 
+                                           min="1900-01-01" max="2024-12-31">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="experience" class="form-label">Experience Level</label>
+                                    <select class="form-select" id="experience" required>
+                                        <option value="">Choose...</option>
+                                        <option value="beginner">Beginner</option>
+                                        <option value="intermediate">Intermediate</option>
+                                        <option value="advanced">Advanced</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select your experience level.</div>
+                                </div>
+                                
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="newsletter" required>
+                                    <label class="form-check-label" for="newsletter">
+                                        I agree to receive newsletter updates
+                                    </label>
+                                    <div class="invalid-feedback">You must agree to continue.</div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane me-2"></i>Submit Form
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CSS Section -->
+    <section id="css" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">CSS Styling Excellence</h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fab fa-css3-alt"></i>
+                            <h3>Advanced CSS</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Demonstrating modern CSS techniques including Flexbox, Grid, animations, and responsive design.</p>
+                            
+                            <div class="interactive-demo">
+                                <h6>CSS Grid Layout Demo</h6>
+                                <div id="grid-demo" class="d-grid gap-2" style="grid-template-columns: repeat(3, 1fr);">
+                                    <div class="p-3 bg-primary text-white rounded">Item 1</div>
+                                    <div class="p-3 bg-secondary text-white rounded">Item 2</div>
+                                    <div class="p-3 bg-success text-white rounded">Item 3</div>
+                                    <div class="p-3 bg-warning text-dark rounded">Item 4</div>
+                                    <div class="p-3 bg-info text-white rounded">Item 5</div>
+                                    <div class="p-3 bg-danger text-white rounded">Item 6</div>
+                                </div>
+                                <button class="demo-button mt-2" onclick="toggleGridLayout()">Toggle Layout</button>
+                            </div>
+
+                            <div class="code-example">
+                                <pre><code><span class="comment">/* CSS Grid Layout */</span>
+<span class="keyword">.grid-container</span> {
+  <span class="string">display: grid;</span>
+  <span class="string">grid-template-columns: repeat(3, 1fr);</span>
+  <span class="string">gap: 1rem;</span>
+  <span class="string">transition: all 0.3s ease;</span>
+}
+
+<span class="comment">/* Responsive Grid */</span>
+<span class="keyword">@media (max-width: 768px)</span> {
+  <span class="keyword">.grid-container</span> {
+    <span class="string">grid-template-columns: 1fr;</span>
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fas fa-paint-brush"></i>
+                            <h3>Animations & Effects</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>CSS animations, transitions, and visual effects that enhance user experience.</p>
+                            
+                            <div class="interactive-demo">
+                                <h6>Animation Showcase</h6>
+                                <div class="text-center">
+                                    <div id="animated-box" class="d-inline-block p-4 bg-gradient rounded-3 text-white mb-3" 
+                                         style="background: var(--gradient); transition: all 0.5s ease;">
+                                        <i class="fas fa-star fa-2x"></i>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="demo-button" onclick="animateBox('bounce')">Bounce</button>
+                                    <button class="demo-button" onclick="animateBox('rotate')">Rotate</button>
+                                    <button class="demo-button" onclick="animateBox('scale')">Scale</button>
+                                    <button class="demo-button" onclick="animateBox('reset')">Reset</button>
+                                </div>
+                            </div>
+
+                            <div class="code-example">
+                                <pre><code><span class="comment">/* CSS Animations */</span>
+<span class="keyword">@keyframes bounce</span> {
+  <span class="string">0%, 100% { transform: translateY(0); }</span>
+  <span class="string">50% { transform: translateY(-20px); }</span>
+}
+
+<span class="keyword">.bounce</span> {
+  <span class="string">animation: bounce 0.6s ease-in-out;</span>
+}
+
+<span class="keyword">.rotate</span> {
+  <span class="string">transform: rotate(360deg);</span>
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>Responsive Design</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Mobile-first responsive design using CSS media queries and flexible layouts.</p>
+                            
+                            <div class="interactive-demo">
+                                <h6>Responsive Breakpoints</h6>
+                                <div id="responsive-demo" class="p-3 rounded text-center text-white" 
+                                     style="background: var(--primary-color);">
+                                    <span id="breakpoint-text">Resize window to see breakpoints</span>
+                                </div>
+                                <div class="mt-2 small">
+                                    <div><strong>XS:</strong> &lt; 576px</div>
+                                    <div><strong>SM:</strong> ≥ 576px</div>
+                                    <div><strong>MD:</strong> ≥ 768px</div>
+                                    <div><strong>LG:</strong> ≥ 992px</div>
+                                    <div><strong>XL:</strong> ≥ 1200px</div>
+                                </div>
+                            </div>
+
+                            <div class="code-example">
+                                <pre><code><span class="comment">/* Mobile First Approach */</span>
+<span class="keyword">.container</span> {
+  <span class="string">width: 100%;</span>
+  <span class="string">padding: 1rem;</span>
+}
+
+<span class="keyword">@media (min-width: 768px)</span> {
+  <span class="keyword">.container</span> {
+    <span class="string">max-width: 750px;</span>
+    <span class="string">margin: 0 auto;</span>
+  }
+}
+
+<span class="keyword">@media (min-width: 1200px)</span> {
+  <span class="keyword">.container</span> {
+    <span class="string">max-width: 1140px;</span>
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap Section -->
+    <section id="bootstrap" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title fade-in">Bootstrap Framework</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fab fa-bootstrap"></i>
+                            <h3>Bootstrap Components</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Demonstrating Bootstrap's component system, grid layout, and utility classes.</p>
+                            
+                            <div class="interactive-demo">
+                                <h6>Bootstrap Components Showcase</h6>
+                                
+                                <!-- Alert Component -->
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    This is a Bootstrap alert component with dismiss functionality.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                                
+                                <!-- Progress Bars -->
+                                <div class="mb-3">
+                                    <label class="form-label">Progress Indicators</label>
+                                    <div class="progress mb-2" style="height: 20px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%">75%</div>
+                                    </div>
+                                    <div class="progress mb-2" style="height: 20px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 60%">60%</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Badges -->
+                                <div class="mb-3">
+                                    <span class="badge bg-primary me-1">Primary</span>
+                                    <span class="badge bg-secondary me-1">Secondary</span>
+                                    <span class="badge bg-success me-1">Success</span>
+                                    <span class="badge bg-warning me-1">Warning</span>
+                                </div>
+                                
+                                <!-- Button Group -->
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-outline-primary">Left</button>
+                                    <button type="button" class="btn btn-outline-primary">Middle</button>
+                                    <button type="button" class="btn btn-outline-primary">Right</button>
+                                </div>
+                            </div>
+
+                            <a href="#" class="demo-link" data-bs-toggle="modal" data-bs-target="#bootstrapModal">
+                                <i class="fas fa-external-link-alt me-2"></i>View Bootstrap Modal
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fas fa-th"></i>
+                            <h3>Grid System & Layout</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Bootstrap's powerful 12-column grid system with responsive breakpoints.</p>
+                            
+                            <div class="interactive-demo">
+                                <h6>Responsive Grid Demo</h6>
+                                <div class="row g-2 mb-3">
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="p-2 bg-primary text-white rounded text-center">Col 1</div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="p-2 bg-secondary text-white rounded text-center">Col 2</div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-4">
+                                        <div class="p-2 bg-success text-white rounded text-center">Col 3</div>
+                                    </div>
+                                </div>
+                                
+                                <h6>Utility Classes Demo</h6>
+                                <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded mb-3">
+                                    <span class="fw-bold text-primary">Bold Primary Text</span>
+                                    <span class="badge bg-danger">New</span>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button class="btn btn-primary me-2">Primary</button>
+                                    <button class="btn btn-outline-secondary me-2">Secondary</button>
+                                    <button class="btn btn-success btn-sm">Small Success</button>
+                                </div>
+                            </div>
+
+                            <div class="code-example">
+                                <pre><code><span class="comment">&lt;!-- Bootstrap Grid System --&gt;</span>
+<span class="keyword">&lt;div</span> <span class="string">class="row"</span><span class="keyword">&gt;</span>
+  <span class="keyword">&lt;div</span> <span class="string">class="col-12 col-md-6 col-lg-4"</span><span class="keyword">&gt;</span>
+    Column 1
+  <span class="keyword">&lt;/div&gt;</span>
+  <span class="keyword">&lt;div</span> <span class="string">class="col-12 col-md-6 col-lg-8"</span><span class="keyword">&gt;</span>
+    Column 2
+  <span class="keyword">&lt;/div&gt;</span>
+<span class="keyword">&lt;/div&gt;</span>
+
+<span class="comment">&lt;!-- Utility Classes --&gt;</span>
+<span class="keyword">&lt;div</span> <span class="string">class="d-flex justify-content-center align-items-center"</span><span class="keyword">&gt;</span>
+  <span class="keyword">&lt;span</span> <span class="string">class="text-primary fw-bold"</span><span class="keyword">&gt;</span>Centered Text<span class="keyword">&lt;/span&gt;</span>
+<span class="keyword">&lt;/div&gt;</span></code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript Section -->
+    <section id="javascript" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">JavaScript Functionality</h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fab fa-js-square"></i>
+                            <h3>DOM Manipulation</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Interactive JavaScript demonstrations showing DOM manipulation, event handling, and dynamic content.</p>
+                            
+                            <div class="interactive-demo">
+                                <h6>Dynamic Content Demo</h6>
+                                <div id="dynamic-content" class="p-3 bg-light rounded mb-3">
+                                    <p>Original content. Click buttons below to modify this text dynamically!</p>
+                                </div>
+                                <button class="demo-button" onclick="changeContent('text')">Change Text</button>
+                                <button class="demo-button" onclick="changeContent('style')">Change Style</button>
+                                <button class="demo-button" onclick="changeContent('reset')">Reset</button>
+                            </div>
+
+                            <div class="code-example">
+                                <pre><code><span class="comment">// DOM Manipulation</span>
+<span class="keyword">function</span> <span class="string">changeContent</span>(type) {
+  <span class="keyword">const</span> element = document.getElementById(<span class="string">'dynamic-content'</span>);
+  
+  <span class="keyword">if</span> (type === <span class="string">'text'</span>) {
+    element.innerHTML = <span class="string">'&lt;p&gt;Content changed with JavaScript!&lt;/p&gt;'</span>;
+  } <span class="keyword">else if</span> (type === <span class="string">'style'</span>) {
+    element.style.background = <span class="string">'linear-gradient(45deg, #ff6b6b, #4ecdc4)'</span>;
+    element.style.color = <span class="string">'white'</span>;
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fas fa-calculator"></i>
+                            <h3>Interactive Calculator</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>A functional calculator demonstrating JavaScript logic, event handling, and user interface interaction.</p>
+                            
+                            <div class="interactive-demo">
+                                <div class="calculator">
+                                    <input type="text" id="calc-display" class="form-control mb-2 text-end" readonly value="0">
+                                    <div class="row g-1">
+                                        <div class="col-3"><button class="btn btn-secondary w-100" onclick="clearCalculator()">C</button></div>
+                                        <div class="col-3"><button class="btn btn-secondary w-100" onclick="deleteLast()">⌫</button></div>
+                                        <div class="col-3"><button class="btn btn-warning w-100" onclick="appendToDisplay('/')">/</button></div>
+                                        <div class="col-3"><button class="btn btn-warning w-100" onclick="appendToDisplay('*')">×</button></div>
+                                    </div>
+                                    <div class="row g-1 mt-1">
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('7')">7</button></div>
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('8')">8</button></div>
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('9')">9</button></div>
+                                        <div class="col-3"><button class="btn btn-warning w-100" onclick="appendToDisplay('-')">-</button></div>
+                                    </div>
+                                    <div class="row g-1 mt-1">
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('4')">4</button></div>
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('5')">5</button></div>
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('6')">6</button></div>
+                                        <div class="col-3"><button class="btn btn-warning w-100" onclick="appendToDisplay('+')">+</button></div>
+                                    </div>
+                                    <div class="row g-1 mt-1">
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('1')">1</button></div>
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('2')">2</button></div>
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('3')">3</button></div>
+                                        <div class="col-3"><button class="btn btn-success w-100" onclick="calculateResult()" rowspan="2">=</button></div>
+                                    </div>
+                                    <div class="row g-1 mt-1">
+                                        <div class="col-6"><button class="btn btn-light w-100" onclick="appendToDisplay('0')">0</button></div>
+                                        <div class="col-3"><button class="btn btn-light w-100" onclick="appendToDisplay('.')">.</button></div>
+                                        <div class="col-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="portfolio-card fade-in">
+                        <div class="card-header">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>Interactive Game</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>A simple number guessing game demonstrating JavaScript logic, random numbers, and user interaction.</p>
+                            
+                            <div class="interactive-demo">
+                                <h6>Number Guessing Game</h6>
+                                <p class="small">I'm thinking of a number between 1 and 100. Can you guess it?</p>
+                                
+                                <div class="mb-3">
+                                    <input type="number" id="guess-input" class="form-control" placeholder="Enter your guess" min="1" max="100">
+                                </div>
+                                
+                                <div class="text-center mb-3">
+                                    <button class="demo-button" onclick="makeGuess()">Make Guess</button>
+                                    <button class="demo-button" onclick="resetGame()">New Game</button>
+                                </div>
+                                
+                                <div id="game-feedback" class="alert alert-info">
+                                    <strong>Attempts:</strong> <span id="attempts">0</span><br>
+                                    <strong>Status:</strong> <span id="game-status">Make your first guess!</span>
+                                </div>
+                            </div>
+
+                            <div class="code-example">
+                                <pre><code><span class="comment">// Number Guessing Game Logic</span>
+<span class="keyword">let</span> targetNumber = Math.floor(Math.random() * <span class="string">100</span>) + <span class="string">1</span>;
+<span class="keyword">let</span> attempts = <span class="string">0</span>;
+
+<span class="keyword">function</span> <span class="string">makeGuess</span>() {
+  <span class="keyword">const</span> guess = parseInt(document.getElementById(<span class="string">'guess-input'</span>).value);
+  attempts++;
+  
+  <span class="keyword">if</span> (guess === targetNumber) {
+    showResult(<span class="string">'Congratulations! You won!'</span>, <span class="string">'success'</span>);
+  } <span class="keyword">else if</span> (guess &lt; targetNumber) {
+    showResult(<span class="string">'Too low! Try higher.'</span>, <span class="string">'warning'</span>);
+  } <span class="keyword">else</span> {
+    showResult(<span class="string">'Too high! Try lower.'</span>, <span class="string">'warning'</span>);
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="bootstrapModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fab fa-bootstrap me-2"></i>Bootstrap Modal Component
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This modal demonstrates Bootstrap's JavaScript component functionality, including:</p>
+                    <ul>
+                        <li>Modal backdrop and focus management</li>
+                        <li>Keyboard navigation (ESC to close)</li>
+                        <li>Responsive design across devices</li>
+                        <li>Smooth animations and transitions</li>
+                        <li>Accessibility features (ARIA attributes)</li>
+                    </ul>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h6>Modal Sizes</h6>
+                            <button class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#smallModal">Small</button>
+                            <button class="btn btn-sm btn-outline-primary me-2">Large (Current)</button>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Form in Modal</h6>
+                            <form>
+                                <div class="mb-2">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Name">
+                                </div>
+                                <div class="mb-2">
+                                    <input type="email" class="form-control form-control-sm" placeholder="Email">
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Small Modal -->
+    <div class="modal fade" id="smallModal" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Small Modal</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="small">This is a small modal example.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h4 class="mb-3">Full Stack Developer Portfolio</h4>
+                    <p class="mb-4">Demonstrating comprehensive understanding of modern web development technologies and best practices.</p>
+                    
+                    <div class="footer-links">
+                        <a href="#home"><i class="fas fa-home me-1"></i>Home</a>
+                        <a href="#fullstack"><i class="fas fa-layer-group me-1"></i>Full Stack</a>
+                        <a href="#html"><i class="fab fa-html5 me-1"></i>HTML</a>
+                        <a href="#css"><i class="fab fa-css3-alt me-1"></i>CSS</a>
+                        <a href="#bootstrap"><i class="fab fa-bootstrap me-1"></i>Bootstrap</a>
+                        <a href="#javascript"><i class="fab fa-js-square me-1"></i>JavaScript</a>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <p>&copy; 2024 Full Stack Developer Portfolio. Built with HTML5, CSS3, Bootstrap 5, and JavaScript.</p>
+                        <p class="small text-muted">This portfolio demonstrates understanding of frontend technologies for academic assessment purposes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Page Navigation and Smooth Scrolling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Update active navigation on scroll
+            window.addEventListener('scroll', updateActiveNavigation);
+            
+            // Initialize skill progress bars
+            initializeSkillBars();
+            
+            // Initialize responsive breakpoint detector
+            updateBreakpointDisplay();
+            window.addEventListener('resize', updateBreakpointDisplay);
+            
+            // Initialize number guessing game
+            resetGame();
+        });
+
+        function updateActiveNavigation() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link, .page-nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Full Stack Development Interactive Demo
+        function showLayer(layer) {
+            const layerInfo = document.getElementById('layer-info');
+            const layerData = {
+                frontend: {
+                    title: 'Frontend Layer',
+                    content: 'Handles user interface, user experience, and client-side logic. Technologies include HTML, CSS, JavaScript, and frameworks like React or Vue.js.',
+                    color: '#6366f1'
+                },
+                backend: {
+                    title: 'Backend Layer', 
+                    content: 'Manages server-side logic, databases, APIs, and application architecture. Technologies include Node.js, Python, PHP, and databases like MySQL or MongoDB.',
+                    color: '#8b5cf6'
+                },
+                database: {
+                    title: 'Database Layer',
+                    content: 'Stores and manages application data. Includes relational databases (MySQL, PostgreSQL) and NoSQL databases (MongoDB, Redis).',
+                    color: '#06b6d4'
+                }
+            };
+
+            const data = layerData[layer];
+            layerInfo.innerHTML = `
+                <div style="border-left: 4px solid ${data.color}; padding-left: 1rem;">
+                    <h6 style="color: ${data.color}; margin-bottom: 0.5rem;">${data.title}</h6>
+                    <p style="margin: 0;">${data.content}</p>
+                </div>
+            `;
+        }
+
+        // Skill Progress Bars Animation
+        function initializeSkillBars() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const progressBars = entry.target.querySelectorAll('.skill-progress');
+                        progressBars.forEach(bar => {
+                            const width = bar.getAttribute('data-width');
+                            setTimeout(() => {
+                                bar.style.width = width;
+                            }, 500);
+                        });
+                    }
+                });
+            });
+
+            const skillSection = document.querySelector('#fullstack');
+            if (skillSection) {
+                observer.observe(skillSection);
+            }
+        }
+
+        // HTML Form Validation Demo
+        document.getElementById('html-demo-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (this.checkValidity()) {
+                alert('Form submitted successfully! This demonstrates HTML5 validation and JavaScript form handling.');
+                this.reset();
+                this.classList.remove('was-validated');
+            } else {
+                this.classList.add('was-validated');
+            }
+        });
+
+        function showHTMLDemo() {
+            alert('This portfolio itself demonstrates HTML5 features:\n\n• Semantic elements (header, nav, main, section, footer)\n• Form validation with various input types\n• Accessibility attributes (ARIA labels, alt text)\n• Meta tags for responsive design\n• Structured markup for SEO');
+        }
+
+        // CSS Grid Layout Toggle
+        let gridLayoutToggled = false;
+        function toggleGridLayout() {
+            const gridDemo = document.getElementById('grid-demo');
+            if (!gridLayoutToggled) {
+                gridDemo.style.gridTemplateColumns = '1fr 2fr';
+                gridLayoutToggled = true;
+            } else {
+                gridDemo.style.gridTemplateColumns = 'repeat(3, 1fr)';
+                gridLayoutToggled = false;
+            }
+        }
+
+        // CSS Animation Demo
+        function animateBox(animation) {
+            const box = document.getElementById('animated-box');
+            box.className = 'd-inline-block p-4 bg-gradient rounded-3 text-white mb-3';
+            
+            switch(animation) {
+                case 'bounce':
+                    box.style.animation = 'bounce 0.6s ease-in-out';
+                    break;
+                case 'rotate':
+                    box.style.transform = 'rotate(360deg)';
+                    break;
+                case 'scale':
+                    box.style.transform = 'scale(1.2)';
+                    break;
+                case 'reset':
+                    box.style.animation = '';
+                    box.style.transform = '';
+                    break;
+            }
+            
+            if (animation !== 'reset') {
+                setTimeout(() => {
+                    box.style.animation = '';
+                    box.style.transform = '';
+                }, 600);
+            }
+        }
+
+        // Responsive Breakpoint Display
+        function updateBreakpointDisplay() {
+            const breakpointText = document.getElementById('breakpoint-text');
+            const responsiveDemo = document.getElementById('responsive-demo');
+            const width = window.innerWidth;
+            
+            let breakpoint, color;
+            if (width < 576) {
+                breakpoint = 'Extra Small (XS)';
+                color = '#dc3545';
+            } else if (width < 768) {
+                breakpoint = 'Small (SM)';
+                color = '#fd7e14';
+            } else if (width < 992) {
+                breakpoint = 'Medium (MD)';
+                color = '#ffc107';
+            } else if (width < 1200) {
+                breakpoint = 'Large (LG)';
+                color = '#198754';
+            } else {
+                breakpoint = 'Extra Large (XL)';
+                color = '#0d6efd';
+            }
+            
+            breakpointText.textContent = `Current: ${breakpoint} (${width}px)`;
+            responsiveDemo.style.background = color;
+        }
+
+        // JavaScript DOM Manipulation Demo
+        function changeContent(type) {
+            const element = document.getElementById('dynamic-content');
+            
+            switch(type) {
+                case 'text':
+                    element.innerHTML = '<p><strong>Content changed with JavaScript!</strong><br>This demonstrates DOM manipulation and dynamic content updates.</p>';
+                    break;
+                case 'style':
+                    element.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4)';
+                    element.style.color = 'white';
+                    element.style.transform = 'scale(1.05)';
+                    break;
+                case 'reset':
+                    element.innerHTML = '<p>Original content. Click buttons below to modify this text dynamically!</p>';
+                    element.style.background = '';
+                    element.style.color = '';
+                    element.style.transform = '';
+                    break;
+            }
+        }
+
+        // Calculator Functionality
+        let calculatorDisplay = '0';
+        let shouldResetDisplay = false;
+        let lastOperator = '';
+
+        function appendToDisplay(value) {
+            const display = document.getElementById('calc-display');
+            const operators = ['+', '-', '*', '/'];
+            
+            if (shouldResetDisplay && !operators.includes(value)) {
+                calculatorDisplay = '';
+                shouldResetDisplay = false;
+            }
+            
+            // Handle initial zero
+            if (calculatorDisplay === '0') {
+                if (value === '.') {
+                    calculatorDisplay = '0.';
+                } else if (!operators.includes(value)) {
+                    calculatorDisplay = value;
+                } else {
+                    calculatorDisplay += value;
+                }
+            } else {
+                // Prevent multiple consecutive operators
+                if (operators.includes(value) && operators.includes(lastOperator)) {
+                    calculatorDisplay = calculatorDisplay.slice(0, -1) + value;
+                } else if (value === '.' && calculatorDisplay.includes('.')) {
+                    // Prevent multiple decimal points in the same number
+                    const parts = calculatorDisplay.split(/[\+\-\*\/]/);
+                    const lastPart = parts[parts.length - 1];
+                    if (lastPart.includes('.')) {
+                        return; // Don't add another decimal point
+                    }
+                    calculatorDisplay += value;
+                } else {
+                    calculatorDisplay += value;
+                }
+            }
+            
+            lastOperator = operators.includes(value) ? value : '';
+            display.value = calculatorDisplay;
+            
+            if (shouldResetDisplay && !operators.includes(value)) {
+                shouldResetDisplay = false;
+            }
+        }
+
+        function clearCalculator() {
+            calculatorDisplay = '0';
+            shouldResetDisplay = false;
+            lastOperator = '';
+            document.getElementById('calc-display').value = calculatorDisplay;
+        }
+
+        function deleteLast() {
+            if (calculatorDisplay.length > 1) {
+                const deletedChar = calculatorDisplay.slice(-1);
+                calculatorDisplay = calculatorDisplay.slice(0, -1);
+                
+                // Update lastOperator if we deleted an operator
+                const operators = ['+', '-', '*', '/'];
+                if (operators.includes(deletedChar)) {
+                    // Find the last operator in the remaining string
+                    lastOperator = '';
+                    for (let i = calculatorDisplay.length - 1; i >= 0; i--) {
+                        if (operators.includes(calculatorDisplay[i])) {
+                            lastOperator = calculatorDisplay[i];
+                            break;
+                        }
+                    }
+                }
+            } else {
+                calculatorDisplay = '0';
+                lastOperator = '';
+            }
+            document.getElementById('calc-display').value = calculatorDisplay;
+        }
+
+        function calculateResult() {
+            try {
+                // Clean up the expression
+                let expression = calculatorDisplay.replace(/×/g, '*');
+                
+                // Remove trailing operators
+                const operators = ['+', '-', '*', '/'];
+                while (operators.includes(expression.slice(-1))) {
+                    expression = expression.slice(0, -1);
+                }
+                
+                // Prevent empty expression or just operators
+                if (!expression || expression === '0' || operators.includes(expression)) {
+                    return;
+                }
+                
+                // Check for invalid patterns like multiple operators
+                if (/[\+\-\*\/]{2,}/.test(expression)) {
+                    throw new Error('Invalid expression');
+                }
+                
+                // Validate expression has numbers
+                if (!/\d/.test(expression)) {
+                    throw new Error('Invalid expression');
+                }
+                
+                // Safe evaluation - create a simple math parser instead of using Function
+                const result = evaluateExpression(expression);
+                
+                // Handle division by zero and invalid results
+                if (!isFinite(result) || isNaN(result)) {
+                    throw new Error('Invalid calculation');
+                }
+                
+                // Format result to avoid floating point precision issues
+                const formattedResult = Math.round(result * 100000000) / 100000000;
+                
+                calculatorDisplay = formattedResult.toString();
+                document.getElementById('calc-display').value = calculatorDisplay;
+                shouldResetDisplay = true;
+                lastOperator = '';
+                
+            } catch (error) {
+                document.getElementById('calc-display').value = 'Error';
+                calculatorDisplay = '0';
+                shouldResetDisplay = true;
+                lastOperator = '';
+                
+                // Clear error after 2 seconds
+                setTimeout(() => {
+                    if (document.getElementById('calc-display').value === 'Error') {
+                        clearCalculator();
+                    }
+                }, 2000);
+            }
+        }
+
+        // Safe expression evaluator
+        function evaluateExpression(expr) {
+            // Remove any whitespace
+            expr = expr.replace(/\s/g, '');
+            
+            // Split by operators while keeping the operators
+            const tokens = expr.split(/([+\-*/])/).filter(token => token !== '');
+            
+            if (tokens.length < 3) {
+                return parseFloat(tokens[0]) || 0;
+            }
+            
+            // Handle multiplication and division first
+            for (let i = 1; i < tokens.length; i += 2) {
+                if (tokens[i] === '*' || tokens[i] === '/') {
+                    const left = parseFloat(tokens[i - 1]);
+                    const right = parseFloat(tokens[i + 1]);
+                    let result;
+                    
+                    if (tokens[i] === '*') {
+                        result = left * right;
+                    } else {
+                        if (right === 0) throw new Error('Division by zero');
+                        result = left / right;
+                    }
+                    
+                    tokens.splice(i - 1, 3, result.toString());
+                    i -= 2;
+                }
+            }
+            
+            // Handle addition and subtraction
+            let result = parseFloat(tokens[0]);
+            for (let i = 1; i < tokens.length; i += 2) {
+                const operator = tokens[i];
+                const operand = parseFloat(tokens[i + 1]);
+                
+                if (operator === '+') {
+                    result += operand;
+                } else if (operator === '-') {
+                    result -= operand;
+                }
+            }
+            
+            return result;
+        }
+
+        // Number Guessing Game
+        let targetNumber;
+        let gameAttempts;
+        let gameWon;
+
+        function resetGame() {
+            targetNumber = Math.floor(Math.random() * 100) + 1;
+            gameAttempts = 0;
+            gameWon = false;
+            
+            document.getElementById('attempts').textContent = '0';
+            document.getElementById('game-status').textContent = 'Make your first guess!';
+            document.getElementById('guess-input').value = '';
+            document.getElementById('game-feedback').className = 'alert alert-info';
+        }
+
+        function makeGuess() {
+            if (gameWon) return;
+            
+            const guessInput = document.getElementById('guess-input');
+            const guess = parseInt(guessInput.value);
+            
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                showGameResult('Please enter a number between 1 and 100!', 'warning');
+                return;
+            }
+            
+            gameAttempts++;
+            document.getElementById('attempts').textContent = gameAttempts;
+            
+            if (guess === targetNumber) {
+                showGameResult(`Congratulations! You guessed it in ${gameAttempts} attempts!`, 'success');
+                gameWon = true;
+            } else if (guess < targetNumber) {
+                showGameResult('Too low! Try a higher number.', 'warning');
+            } else {
+                showGameResult('Too high! Try a lower number.', 'warning');
+            }
+            
+            guessInput.value = '';
+        }
+
+        function showGameResult(message, type) {
+            document.getElementById('game-status').textContent = message;
+            document.getElementById('game-feedback').className = `alert alert-${type}`;
+        }
+
+        // Enter key support for guessing game
+        document.getElementById('guess-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                makeGuess();
+            }
+        });
+
+        // Add CSS animations for bounce effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                25% { transform: translateY(-10px); }
+                50% { transform: translateY(-20px); }
+                75% { transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975c4204f6882969',t:'MTc1NjMwNDkzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
